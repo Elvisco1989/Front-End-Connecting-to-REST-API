@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- https://www.bootstrapcdn.com/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Wine Shop</title>
+</head>
+<body>
+    <div id="app">
+         <h1>All Wines</h1>
+         <table class="table">
+            <thead>
+                <th><button class="btn btn-success" v-on:click="sortbyPrice()">Sort by Price</button></th>
+                <th><button class="btn btn-success" v-on:click="sortbyRating()">Sort by Rating</button></th>
+                <tr>
+                    <th>Id</th>
+                    <th>Manufacturer</th>
+                    <th>Year</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="wine in Wines">
+                    <td>{{wine.id}}</td>
+                    <td>{{wine.manufacturer}}</td>
+                    <td>{{wine.date}}</td>
+                    <td>{{wine.price}}</td>
+                    <td>{{wine.ratinng}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Filter by Manufacturer</h2>
+       <input v-model="manufacturerFilter" placeholder="Manufacturer" type="text" />
+       <button class="btn btn-success" v-on:click="filterByManufacturer()">Filter</button>
+        <h2>Delete Wines</h2>
+        <input v-model.number="deleteId" placeholder="id" type="number" />
+        <button v-on:click="deleteWine(deleteId)" class="btn btn-warning">Delete</button>
+        {{deleteMessage}}
+
+        <h2>Get by Id</h2>
+        <input v-model="idToGetBy" placeholder="id" type="number" />
+        <button v-on:click="getWineById(idToGetBy)" class="btn btn-primary">Get by id</button>
+        <div v-if="singleWine">
+            {{singleWine.id}} {{singleWine.manufacturer}} {{ singleWine.date}} {{singleWine.price}} {{singleWine.rating}}
+        </div>
+        <div v-else>No such wine</div>
+        <h2>Add Wines</h2>
+       
+        <input  v-model="addData.manufacturer" placeholder="manufacturer" type="text" />
+        <input  v-model="addData.date" placeholder="date" type="text" />
+        <input  v-model.number="addData.price" placeholder="price" type="number" />
+        <input  v-model.number="addData.ratinng" placeholder="rating" type="number" />
+        <button v-on:click="addWine()" class="btn btn-success">Add</button>
+        <div>{{addMessage}}</div>
+        <h2>Update Wines</h2>
+        <input v-model.number="updateData.id" placeholder="id" type="number" />
+        <input  v-model="updateData.manufacturer" placeholder="manufacturer" type="text" />
+        <input  v-model="updateData.date" placeholder="date" type="text" />
+        <input  v-model.number="updateData.price" placeholder="price" type="number" />
+        <input  v-model.number="updateData.rating" placeholder="rating" type="number" />
+        <button v-on:click="updateWine()" class="btn btn-success">Update</button>
+        <div>{{updateMessage}}</div>
+
+    </div>
+    <script src="index.js"></script>
+    
+</body>
+</html>
